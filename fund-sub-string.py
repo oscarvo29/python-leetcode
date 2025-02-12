@@ -10,49 +10,7 @@ def findSubstring(s: str, words: list[str]) -> list[int]:
             return [0]
         else:
             return []  
-    elif words_size == 1:
-        idx = 0
-        while idx <= len(s) - step:
-            word = s[idx: idx + step]
-            if word in words:
-                output.append(idx)
-            idx += 1
-        return output
-    elif len(s) == len(words):
-        if all(map(str.__eq__, words, s)):
-            return [0]
-        return []
-    else:
-        def closure(s: str, words: list[str], is_recurssive: bool = False):
-            if len(s) == step:
-                if s in words and len(words) == 1 and is_recurssive:                
-                    return True
-                else:
-                    return False
-            
-            idx = 0
-            while idx <= len(s) - step:
-                word = s[idx: idx + step]
-                if word in words:
-                    if len(words) == 1 and is_recurssive:
-                        return True
-
-                    sub_words = words[0:]
-                    sub_words.remove(word)
-                    sub_str = s[idx + step:]
-                    is_valid = closure(sub_str, sub_words, is_recurssive=True)
-                    if is_valid:
-                        if not is_recurssive:
-                            output.append(idx)
-                        else:
-                            return True
-                    if is_recurssive:
-                        return False
-                else:
-                    if is_recurssive:
-                        return False
-                idx += 1
-        # closure(s, words)
+    
     return output
 
 
