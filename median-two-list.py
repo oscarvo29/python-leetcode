@@ -1,53 +1,41 @@
 
-
-
 def findMedianSortedArrays(nums1: list[int], nums2: list[int]) -> float:
-    return
+    max_size = len(nums1) + len(nums2)
+    merged = []
+    while len(merged) <= max_size:
+        if len(nums1) == 0 and len(nums2) > 0:
+            merged += nums2
+            break
+        if len(nums2) == 0 and len(nums1) > 0:
+            merged += nums1
+            break
 
-def merge(l1: list[int], l2: list[int], output = []) -> list[int]:
-    if len(l1) == 0 and len(l2) == 0:
-        return output
-    
-
-
-l = [1, 4, 2, 5, 3, 6, 9, 7]
-
-def sorting(l1: list[int], output: list[int] = []) -> list[int]:
-    left = 0
-    right = len(l1) - 1
-    
-    if len(l1) == 1:
-        print(l1)
-        return l1[0]
-    
-    pivot_point = l1[-1]
-    for item in l1:
-        if item <= pivot_point:
-            left.append(item)
+        if nums1[0] < nums2[0]:
+            merged.append(nums1.pop(0))
         else:
-            right.append(item)
-
-    subarr_1 = sorting(left)
-    subarr_2 = sorting(right)
-    print(f"subarr 1: {subarr_1}")
-    print(f"subarr 1: {subarr_2}")
-
-# sorting(l)
-
-for i in 121:
-    print(i)
-
-# n1 = [1, 3]
-# n2 = [2]
-
-# print(len(n2) // 2)
+            merged.append(nums2.pop(0))
+            
+    mid = len(merged)//2
+    if len(merged) % 2 == 1:
+        return float(merged[mid])
+    else:
+        return (merged[mid] + merged[mid - 1]) / 2
 
 
-# findMedianSortedArrays(n1, n2)
 
-# n1 = [1, 2]
-# n2 = [3, 4]
 
-# findMedianSortedArrays(n1, n2)
+n1 = [1, 3]
+n2 = [2]
+
+o = findMedianSortedArrays(n1, n2)
+expected = 2.0
+print(f"got: {o}, is correct: {o == expected}")
+
+
+n1 = [1, 2]
+n2 = [3, 4]
+o = findMedianSortedArrays(n1, n2)
+expected = 2.5
+print(f"got: {o}, is correct: {o == expected}")
 
 
